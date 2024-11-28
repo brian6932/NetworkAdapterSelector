@@ -4,7 +4,8 @@
     <OutputType>Library</OutputType>
     <TargetFramework>net462</TargetFramework>
     <Company>Soroush Falahati (falahati.net)</Company>
-    <Description>A simple solution that lets the user to force bind a program to a specific network adapter</Description>
+    <Description>A simple solution that lets the user to force bind a program to a specific network
+      adapter</Description>
     <Authors>Soroush Falahati</Authors>
     <Copyright>Copyright Soroush Falahati 2018</Copyright>
     <Platforms>AnyCPU</Platforms>
@@ -25,14 +26,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\Release</OutputPath>
   </PropertyGroup>
+  <PropertyGroup>
+    <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ServerRegistrationManager" Version="2.7.1" />
     <PackageReference Include="SharpShell" Version="2.7.1" />
   </ItemGroup>
-  <Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <ItemGroup>
+    <PackageReference Include="System.Resources.Extensions" Version="9.0.0" />
+  </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent"
+    Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Exec Command="&quot;$(TargetPath)&quot;" />
   </Target>
-  <Target Name="PreBuild" BeforeTargets="PreBuildEvent" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent"
+    Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <Exec Command="taskkill /IM explorer.exe /F &gt; %temp%\out.txt 2&gt;&amp;1&#xD;&#xA;exit /B 0" />
   </Target>
 </Project>
